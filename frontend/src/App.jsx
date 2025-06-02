@@ -1,17 +1,10 @@
 import "./App.css";
+import Login from "./pages/login/Login";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <button className="btn btn-active">Default</button>
-      <button className="btn btn-active btn-neutral">Neutral</button>
-      <button className="btn btn-active btn-primary">Primary</button>
-      <button className="btn btn-active btn-secondary">Secondary</button>
-      <button className="btn btn-active btn-accent">Accent</button>
-      <button className="btn btn-active btn-ghost">Ghost</button>
-      <button className="btn btn-active btn-link">Link</button>
+    <div className="p-4 h-screen flex items-center justify-center">
+      <Login />
     </div>
   );
 }
