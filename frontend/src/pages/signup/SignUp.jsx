@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 
 import GenderCheckbox from "./GenderCheckbox";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    password: "",
+    gender: "",
+    confirmPassword: "",
+  });
+
+  const handleGenderChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      gender: e.target.value,
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
@@ -11,7 +38,7 @@ const SignUp = () => {
           Sign Up <span className="text-blue-500"> ChatApp</span>
         </h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Full Name</span>
@@ -20,6 +47,9 @@ const SignUp = () => {
               type="text"
               placeholder="John Doe"
               className="w-full input input-bordered  h-10"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
             />
           </div>
 
@@ -31,6 +61,9 @@ const SignUp = () => {
               type="text"
               placeholder="johndoe"
               className="w-full input input-bordered h-10"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
             />
           </div>
 
@@ -42,6 +75,9 @@ const SignUp = () => {
               type="password"
               placeholder="Enter Password"
               className="w-full input input-bordered h-10"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
             />
           </div>
 
@@ -53,10 +89,16 @@ const SignUp = () => {
               type="password"
               placeholder="Confirm Password"
               className="w-full input input-bordered h-10"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
           </div>
 
-          <GenderCheckbox />
+          <GenderCheckbox
+            selectedGender={formData.gender}
+            onGenderChange={handleGenderChange}
+          />
 
           <Link
             to={"/login"}
