@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import GenderCheckbox from "./GenderCheckbox";
 import { Link } from "react-router-dom";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const SignUp = () => {
     gender: "",
     confirmPassword: "",
   });
+
+  const { loading, signup } = useSignup();
 
   const handleGenderChange = (e) => {
     setFormData((prev) => ({
@@ -27,9 +30,16 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log("hellHi");
+    await signup({
+      fullName: formData.name,
+      username: formData.username,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      gender: formData.gender,
+    });
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
